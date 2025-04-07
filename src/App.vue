@@ -1,5 +1,15 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed,onMounted } from 'vue'
+
+import robot1 from '@/assets/images/robot_1.png'
+import robot2 from '@/assets/images/robot_2.png'
+
+import buttonActive from '@/assets/images/button_active.png'
+import button from '@/assets/images/button.png'
+
+import scale_0 from '@/assets/images/measure/power_0.png'
+
+
 
 const powerMeter = ref(null)
 const scale = ref(null)
@@ -13,6 +23,10 @@ const isHidden = ref(true)
 const isLooser = ref(false)
 const isWinner = ref(false)
 
+
+const powerImages = [];
+
+
 const start = () => {
   isButtonActive.value = false
   isHitting.value = false
@@ -24,7 +38,7 @@ const start = () => {
   scale.value.style.height = '0%'
   scale.value.style.animation = ''
 
-  powerMeter.value.src = `../src/assets/images/measure/power_0.png`
+  powerMeter.value.src = scale_0
   scale.value.classList.remove('control__indicator--animated')
   scale.value.classList.add('control__indicator--animated')
 }
@@ -49,7 +63,7 @@ function animatePower(power) {
   let currentStep = 0
 
   const interval = setInterval(() => {
-    powerMeter.value.src = `../src/assets/images/measure/power_${currentStep}.png`
+    powerMeter.value.src = powerImages[currentStep];
     currentStep++
 
     if (currentStep > targetStep) {
@@ -76,6 +90,13 @@ const text = computed(() => {
     default:
       return actionText.value
   }
+})
+
+
+onMounted(() => {
+  for (let i = 0; i < 9; i++) {
+  powerImages.push(`/testvue/measure/power_${i}.png`);
+}
 })
 </script>
 
@@ -113,7 +134,7 @@ const text = computed(() => {
         </div>
         <img
           class="control__scale-measure"
-          src="@/assets/images//scale-1.png"
+          src="@/assets/images/scale-1.png"
           alt="Мера силы удара"
         />
       </div>
@@ -124,8 +145,8 @@ const text = computed(() => {
             class="control__button-image"
             :src="
               isButtonActive
-                ? '../src/assets/images/button_active.png'
-                : '../src/assets/images/button.png'
+                ? buttonActive
+                : button
             "
             alt="Кнопка"
           />
@@ -161,7 +182,7 @@ const text = computed(() => {
         <img
           v-else
           class="control__robot-image"
-          :src="isHitting ? '../src/assets/images/robot_2.png' : '../src/assets/images/robot_1.png'"
+          :src="isHitting ? robot2 : robot1"
           alt="Робот"
         />
       </div>
