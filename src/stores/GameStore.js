@@ -46,7 +46,7 @@ export const useGameStore = defineStore('game', () => {
         clearInterval(interval)
         gameState.isHidden = true
         gameState.isNewgame = false
-        gameState.isWinner = power >= 90
+        gameState.isWinner = power > 90
         gameState.isLooser = power < 90
       }
     }, 300)

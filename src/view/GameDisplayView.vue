@@ -22,6 +22,7 @@ const calculateAndDisplayPower = () => {
   gameStore.runGame()
   const power = scaleRef.value.getHitPower()
   scaleRef.value.displayHitPower()
+  console.log(power)
   gameStore.animatePower(powerMeterElement.value, power)
 }
 </script>
