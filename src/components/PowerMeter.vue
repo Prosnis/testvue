@@ -1,15 +1,11 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { DYNAMIC_IMAGES } from '@/constants/dynamicImages'
+import { useGameStore } from '@/stores/GameStore'
+
+const gameStore = useGameStore()
 
 const powerMeter = ref(null)
-
-defineProps({
-  isWinner: {
-    type: Boolean,
-    default: false,
-  },
-})
 
 const emit = defineEmits(['update:modelValue'])
 
@@ -47,7 +43,7 @@ watch(
           />
         </div>
         <div 
-          v-if="isWinner" 
+          v-if="gameStore.gameState.isWinner" 
           class="meter__glow"
         >
           <img 

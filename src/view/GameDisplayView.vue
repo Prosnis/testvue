@@ -22,14 +22,13 @@ const calculateAndDisplayPower = () => {
   gameStore.runGame()
   const power = scaleRef.value.getHitPower()
   scaleRef.value.displayHitPower()
-  console.log(power)
   gameStore.animatePower(powerMeterElement.value, power)
 }
 </script>
 
 <template>
   <main class="main">
-    <PowerMeter v-model="powerMeterElement" :isWinner="gameStore.gameState.isWinner" />
+    <PowerMeter v-model="powerMeterElement" />
 
     <div class="control">
       <ScaleIndicator ref="scaleRef" />
