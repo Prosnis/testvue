@@ -1,10 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import { useGameStore } from '@/stores/GameStore'
 import { DYNAMIC_IMAGES } from '@/constants/dynamicImages'
 import { computed } from 'vue'
 
 const gameStore = useGameStore()
-defineEmits(['startGame', 'calculateAndDisplayPower'])
+
+defineEmits<{
+  (e : 'startGame'): void
+  (e : 'calculateAndDisplayPower'): void
+}>()
 
 const buttonText = computed(() => (gameStore.gameState.isNewgame ? 'УДАР' : 'НОВАЯ ИГРА'))
 

@@ -1,9 +1,10 @@
 import { reactive, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { DYNAMIC_IMAGES } from '@/constants/dynamicImages'
+import type { GameState } from '@/types/GameState'
 
 export const useGameStore = defineStore('game', () => {
-  const gameState = reactive({
+  const gameState = reactive<GameState>({
     isButtonActive: false,
     isHitting: false,
     isWorking: false,
@@ -25,7 +26,7 @@ export const useGameStore = defineStore('game', () => {
     })
   }
 
-  const runGame = () => {
+  const runGame = () :void => {
     gameState.isHitting = true
     setTimeout(() => {
       gameState.isButtonActive = true
@@ -33,7 +34,7 @@ export const useGameStore = defineStore('game', () => {
     gameState.isHidden = false
   }
 
-  const animatePower = (powerMeter, power) => {
+  const animatePower = (powerMeter: HTMLImageElement, power: number): void => {
     const totalSteps = 8
     const targetStep = Math.round((power / 100) * totalSteps)
     let currentStep = 0

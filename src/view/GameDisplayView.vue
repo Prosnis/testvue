@@ -1,5 +1,5 @@
-<script setup>
-import { ref } from 'vue'
+<script setup lang="ts">
+import { ref, useTemplateRef } from 'vue'
 import { useGameStore } from '@/stores/GameStore'
 import { DYNAMIC_IMAGES } from '@/constants/dynamicImages'
 import PowerMeter from '@/components/PowerMeter.vue'
@@ -9,16 +9,26 @@ import HitButton from '@/components/HitButton.vue'
 
 const gameStore = useGameStore()
 
-const powerMeterElement = ref(null)
-const scaleRef = ref(null)
+interface ScaleIndicatorExposed {
+  initialScale: () => void
+  displayHitPower: () => void
+  getHitPower: () => number
+}
+
+// const powerMeterElement = useTemplateRef<HTMLImageElement>('powerMeterElement') v-model на useTemplateRef = readOnly ? 
+const powerMeterElement = ref<HTMLImageElement | null>(null)
+const scaleRef = useTemplateRef<ScaleIndicatorExposed>('scaleRef')
 
 const startGame = () => {
+  if(!powerMeterElement.value || !scaleRef.value) return
+
   gameStore.resetState()
   powerMeterElement.value.src = DYNAMIC_IMAGES.MEASURE[0]
   scaleRef.value.initialScale()
 }
 
 const calculateAndDisplayPower = () => {
+  if(!scaleRef.value || !powerMeterElement.value) return
   gameStore.runGame()
   const power = scaleRef.value.getHitPower()
   scaleRef.value.displayHitPower()

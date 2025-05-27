@@ -1,16 +1,24 @@
-<script setup>
-import { ref } from 'vue'
+<script setup lang="ts">
+import {ref, useTemplateRef } from 'vue'
+import type { ScaleIndicatorExposed } from '@/types/ScaleIndicatorExposed'
 
-const scaleMeter = ref(null)
-const hitPower = ref(null)
+const scaleMeter = useTemplateRef<HTMLElement>('scaleMeter')
+const hitPower = ref<number | null>(null)
 
-const getHitPower = () => {
+const getHitPower = () :number | null => {
+
+  if (!scaleMeter.value || !scaleMeter.value.parentElement) return null
+
   const wrapperHeight = scaleMeter.value.parentElement.clientHeight
-  hitPower.value = parseFloat((scaleMeter.value.clientHeight / wrapperHeight).toFixed(2) * 100)
+  hitPower.value = parseFloat(
+    ((scaleMeter.value.clientHeight / wrapperHeight) * 100).toFixed(2)
+  )
   return hitPower.value
 }
 
 const initialScale = () => {
+  if (!scaleMeter.value) return
+
   scaleMeter.value.style.height = '0%'
   scaleMeter.value.style.animation = ''
   scaleMeter.value.classList.remove('control__indicator--animated')
@@ -18,6 +26,8 @@ const initialScale = () => {
 }
 
 const displayHitPower = () => {
+  if (!scaleMeter.value) return
+
   scaleMeter.value.style.animation = 'none'
   scaleMeter.value.style.height = `${hitPower.value}%`
 }

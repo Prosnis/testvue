@@ -9,4 +9,4 @@ export const DYNAMIC_IMAGES = {
     ACTIVE: '/testvue/images/button/button_active.png',
     INACTIVE: '/testvue/images/button/button.png',
   },
-}
+} as const
