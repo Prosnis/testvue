@@ -26,7 +26,7 @@ export const useGameStore = defineStore('game', () => {
     })
   }
 
-  const runGame = () :void => {
+  const runGame = (): void => {
     gameState.isHitting = true
     setTimeout(() => {
       gameState.isButtonActive = true
@@ -54,14 +54,21 @@ export const useGameStore = defineStore('game', () => {
   }
 
   const updateActionText = () => {
-    if (gameState.isWinner) gameState.actionText = 'ВОТ ЭТО СИЛА! \nТы выбил главный приз! \nРубин!'
-    else if (gameState.isLooser) gameState.actionText = 'Неплохо! \nПопробуйте ещё раз!'
-    else if (gameState.isWorking) gameState.actionText = 'Жми на кнопку \nв нужный момент!'
+    if (gameState.isWinner)
+      gameState.actionText = 'ВОТ ЭТО СИЛА! \nТы выбил главный приз! \nРубин!'
+    else if (gameState.isLooser)
+      gameState.actionText = 'Неплохо! \nПопробуйте ещё раз!'
+    else if (gameState.isWorking)
+      gameState.actionText = 'Жми на кнопку \nв нужный момент!'
     else gameState.actionText = 'Привет,\nпроверим твою силу!'
   }
 
   watch(
-    [() => gameState.isWinner, () => gameState.isLooser, () => gameState.isWorking],
+    [
+      () => gameState.isWinner,
+      () => gameState.isLooser,
+      () => gameState.isWorking,
+    ],
     updateActionText,
     { immediate: true },
   )

@@ -1,11 +1,9 @@
 <script setup>
-import GameDisplayView from './view/GameDisplayView.vue';
+  import GameDisplayView from './view/GameDisplayView.vue'
 </script>
 
 <template>
- <GameDisplayView />
+  <GameDisplayView />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,5 +1,8 @@
 export const DYNAMIC_IMAGES = {
-  MEASURE: Array.from({ length: 9 }, (_, i) => `/testvue/images/measure/power_${i}.png`),
+  MEASURE: Array.from(
+    { length: 9 },
+    (_, i) => `/testvue/images/measure/power_${i}.png`,
+  ),
   ROBOT: {
     DEFAULT: '/testvue/images/robot/robot_1.png',
     WINNER: '/testvue/images/robot/robot_3.png',
