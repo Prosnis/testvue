@@ -15,7 +15,6 @@ interface ScaleIndicatorExposed {
   getHitPower: () => number
 }
 
-// const powerMeterElement = useTemplateRef<HTMLImageElement>('powerMeterElement') v-model на useTemplateRef = readOnly ? 
 const powerMeterElement = ref<HTMLImageElement | null>(null)
 const scaleRef = useTemplateRef<ScaleIndicatorExposed>('scaleRef')
 
@@ -38,7 +37,7 @@ const calculateAndDisplayPower = () => {
 
 <template>
   <main class="main">
-    <PowerMeter v-model="powerMeterElement" />
+     <PowerMeter @elementIsReady="el => powerMeterElement = el" />
 
     <div class="control">
       <ScaleIndicator ref="scaleRef" />

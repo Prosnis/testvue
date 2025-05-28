@@ -1,25 +1,22 @@
 <script setup lang="ts">
-import { watch, useTemplateRef } from 'vue'
+import { watch, useTemplateRef, onMounted } from 'vue'
 import { DYNAMIC_IMAGES } from '@/constants/dynamicImages'
 import { useGameStore } from '@/stores/GameStore'
 
 const gameStore = useGameStore()
+
 const powerMeter = useTemplateRef<HTMLImageElement>('powerMeter')
 
-
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: HTMLImageElement): void
+  (e: 'elementIsReady', value: HTMLImageElement): void
 }>()
 
-watch(
-  powerMeter,
-  (newVal) => {
-    if (newVal !== null) {
-      emit('update:modelValue', newVal)
-    }
-  },
-  { immediate: true },
-)
+onMounted(() => {
+  if (powerMeter.value) {
+    emit('elementIsReady', powerMeter.value)
+  }
+})
+
 </script>
 
 <template>

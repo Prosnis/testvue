@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {ref, useTemplateRef } from 'vue'
-import type { ScaleIndicatorExposed } from '@/types/ScaleIndicatorExposed'
 
 const scaleMeter = useTemplateRef<HTMLElement>('scaleMeter')
 const hitPower = ref<number | null>(null)
